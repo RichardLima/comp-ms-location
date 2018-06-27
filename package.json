@@ -1,0 +1,23 @@
+{
+  "name": "comp-ms-location",
+  "version": "1.0.0",
+  "description": "Serviço de localização",
+  "main": "index.js",
+  "scripts": {
+    "start": "supervisor index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RichardLima/comp-ms-location.git"
+  },
+  "author": "Richard Lima, Matheus Xavier, Tiago Lopes",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/RichardLima/comp-ms-location/issues"
+  },
+  "homepage": "https://github.com/RichardLima/comp-ms-location#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "request": "^2.87.0"
+  }
+}

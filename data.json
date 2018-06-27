@@ -1,0 +1,92 @@
+[
+    {
+        "cep": 79475,
+        "street": "rua são pedro",
+        "city": "bento gonçalves",
+        "state": "espírito santo",
+        "latitude": "-239.525",
+        "longitude": "1.453.264",
+        "freight": 10
+    },
+    {
+        "cep": 17405,
+        "street": "rua doze",
+        "city": "cariacica",
+        "state": "sergipe",
+        "latitude": "668.190",
+        "longitude": "1.747.205",
+        "freight": 20
+    },
+    {
+        "cep": 68349,
+        "street": "rua são paulo",
+        "city": "crato",
+        "state": "alagoas",
+        "latitude": "-387.208",
+        "longitude": "1.670.022",
+        "freight": 20
+    },
+    {
+        "cep": 18195,
+        "street": "beco dos namorado",
+        "city": "pindamonhangaba",
+        "state": "espírito santo",
+        "latitude": "-769.005",
+        "longitude": "533.965",
+        "freight": 10
+    },
+    {
+        "cep": 46598,
+        "street": "rua santa catarina",
+        "city": "itu",
+        "state": "goiás",
+        "latitude": "-144.781",
+        "longitude": "-183.264",
+        "freight": 20
+    },
+    {
+        "cep": 23203,
+        "street": "rua são sebastiao",
+        "city": "jundiaí",
+        "state": "ceará",
+        "latitude": "561.516",
+        "longitude": "-1.583.801",
+        "freight": 20
+    },
+    {
+        "cep": 41935,
+        "street": "rua maranhão",
+        "city": "luziânia",
+        "state": "sergipe",
+        "latitude": "-887.679",
+        "longitude": "-1.554.638",
+        "freight": 20
+    },
+    {
+        "cep": 45806,
+        "street": "rua são luiz",
+        "city": "águas lindas de goiás",
+        "state": "maranhão",
+        "latitude": "313.272",
+        "longitude": "1.143.229",
+        "freight": 20
+    },
+    {
+        "cep": 19840,
+        "street": "rua castro alves",
+        "city": "diadema",
+        "state": "maranhão",
+        "latitude": "774.501",
+        "longitude": "458.267",
+        "freight": 20
+    },
+    {
+        "cep": 67419,
+        "street": "rua piauí",
+        "city": "macapá",
+        "state": "rio de janeiro",
+        "latitude": "780.787",
+        "longitude": "300.903",
+        "freight": 5
+    }
+]
