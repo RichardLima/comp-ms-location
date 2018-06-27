@@ -37,59 +37,52 @@ app.get('/', function (req, res) {
 app.get('/address', function (req, res) {
     // let data = data
     // var arr = data.map((teste) => {data.cep})
-    let retorno=[]
+    let retorno = []
     data.forEach(ende => {
-        retorno.push({cep: ende.cep,
+        retorno.push({
+            cep: ende.cep,
             rua: ende.street,
             cidade: ende.city,
             estado: ende.state
-            
+
         })
     });
     res.status(200).json(retorno)
-    
+
 })
 
 app.get('/address/:cep', function (req, res) {
-    let teste = req.params.cep
-    console.log(teste)
-    //Por enquanto essa lógica não está funcionando!!!
-    // let verdade = false
-
-    // let retorno=[]
-    // data.forEach(ende => {
-    //     if(teste == ende.cep){
-    //         retorno.push({cep: ende.cep,
-    //             rua: ende.street,
-    //             cidade: ende.city,
-    //             estado: ende.state
-                
-    //         })
-    //         res.status(200).json(retorno)
-    //     }
-    //     else{
-    //         res.status(401).send("esse cep nao existe")
-    //     }
-    // });
-    
-    
-    
+    // verifica se existe o CEP no JSON
+    let cepRetornado = req.params.cep !== undefined ? data.filter(function (obj) { return obj.cep == req.params.cep }) : undefined
+    let cepFormatado = {}
+    // atribui o cep retornado para o objeto 
+    if (typeof cepRetornado != "undefined" && cepRetornado != null && cepRetornado.length != null && cepRetornado.length > 0) {
+        cepFormatado = {
+            cep: cepRetornado[0].cep,
+            rua: cepRetornado[0].street,
+            cidade: cepRetornado[0].city,
+            estado: cepRetornado[0].state
+        }
+    } else {
+        cepFormatado = { message: "O CEP informado não existe!" }
+    }
+    res.json(cepFormatado);
 })
 
-app.post('/update',verifyToken,function (req,res) {
+app.post('/update', verifyToken, function (req, res) {
     let payload = req.payload
-    if(payload){
+    if (payload) {
         res.status(200).send("Feito o update")
-    } else{
+    } else {
         res.status(401).send("Não autorizado")
     }
 })
 
 app.get('/', verifyToken, function (req, res) {
     let payload = req.payload
-    if(payload){
-        res.status(200).json({user:payload.uuid,dados:"Dados secretos do usuário "+payload.login})
-    } else{
+    if (payload) {
+        res.status(200).json({ user: payload.uuid, dados: "Dados secretos do usuário " + payload.login })
+    } else {
         res.set('WWW-Authenticate', 'Bearer realm="401"')
         res.status(401).json({ loged: false, message: "Voce precisa de um token para acessar esse serviço" })
     }
