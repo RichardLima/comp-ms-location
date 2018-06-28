@@ -3,6 +3,8 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 4000
 const data = require('./data.json')
+const fs = require('fs');
+
 
 
 function verifyToken(req, res, next) {
@@ -33,10 +35,8 @@ app.get('/', function (req, res) {
     res.send("Hello")
 })
 
-
+//Lista todos os endereços
 app.get('/address', function (req, res) {
-    // let data = data
-    // var arr = data.map((teste) => {data.cep})
     let retorno = []
     data.forEach(ende => {
         retorno.push({
@@ -51,6 +51,7 @@ app.get('/address', function (req, res) {
 
 })
 
+//Lista um cep específico
 app.get('/address/:cep', function (req, res) {
     // verifica se existe o CEP no JSON
     let cepRetornado = req.params.cep !== undefined ? data.filter(function (obj) { return obj.cep == req.params.cep }) : undefined
@@ -69,10 +70,56 @@ app.get('/address/:cep', function (req, res) {
     res.json(cepFormatado);
 })
 
-app.post('/update', verifyToken, function (req, res) {
+//Atualiza o percentual do frete
+app.post('/address/:cep/:freight', verifyToken, function (req, res) {
     let payload = req.payload
     if (payload) {
+        let cepRetornado = req.params.cep !== undefined ? data.filter(function (obj) { return obj.cep == req.params.cep }) : undefined
+        let freightRetornado = req.params.freight
+
+        let i = 0
+
+        data.forEach(ende => {
+
+            if (ende.cep == cepRetornado[0].cep) {
+                return
+            }
+
+            i++
+        })
+
+        data[i].freight = freightRetornado
+
+        fs.writeFile('./data.json', JSON.stringify(data))
+
         res.status(200).send("Feito o update")
+    } else {
+        res.status(401).send("Não autorizado")
+    }
+})
+
+//recebe o cep e o valor do pedido
+//retorna o valor do frete
+//Calcula o valor do frete
+app.get('/freight/:cep/:valorPedido', verifyToken, function (req, res, valorPedido) {
+    let payload = req.payload
+    if (payload) {
+        let retorno
+        let valorPedido = req.params.valorPedido
+        // verifica se existe o CEP no JSON
+        let cepRetornado = req.params.cep !== undefined ? data.filter(function (obj) { return obj.cep == req.params.cep }) : undefined
+        let valorFrete = {}
+        // atribui o cep retornado para o objeto 
+        if (typeof cepRetornado != "undefined" && cepRetornado != null && cepRetornado.length != null && cepRetornado.length > 0) {
+            valorFrete = {
+                frete: cepRetornado[0].freight
+            }
+            retorno = "O valor do seu frete é: "+(valorPedido * valorFrete.frete)/100
+            
+        } else {
+            retorno = "O CEP informado não existe!"
+        }
+        res.status(200).send(retorno)
     } else {
         res.status(401).send("Não autorizado")
     }
